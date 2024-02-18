@@ -8,7 +8,7 @@ public class BonusScore implements GameScore {
     public int calculateScore(int correctCount, int incorrectCount) {
         int score = 0;
         score += correctCount * 10;
-        score -= correctCount * 5;
+        score -= incorrectCount * 5;
         if (score < 0){
             score = 0;
         }

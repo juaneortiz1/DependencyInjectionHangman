@@ -15,7 +15,6 @@ public class PowerScore implements GameScore{
         }
         score += totalScore;
         score -= incorrectCount * 8;
-
         if (score < 0){
             score = 0;
         }
