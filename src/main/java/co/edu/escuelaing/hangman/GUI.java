@@ -4,6 +4,7 @@ import co.edu.escuelaing.hangman.controller.*;
 import co.edu.escuelaing.hangman.model.*;
 import co.edu.escuelaing.hangman.model.dictionary.HangmanDictionary;
 import co.edu.escuelaing.hangman.setup.factoryMethod.HangmanFactoryMethod;
+import co.edu.escuelaing.hangman.setup.injectionMethod.InjectionMethod;
 import co.edu.escuelaing.hangman.view.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -33,8 +34,10 @@ public class GUI {
     public static final String GAME_OVER_KEY = "gameoverscreen";
 
     private Language language;
+    private GameScore gameScore;
     private HangmanDictionary dictionary;
     private HangmanPanel hangmanPanel;
+    private InjectionMethod injectionMethod;
 
     private MainFrameController mainFrameController;
 
@@ -50,19 +53,21 @@ public class GUI {
         this.language = factoryMethod.createLanguage();
         this.dictionary = factoryMethod.createDictionary();
         this.hangmanPanel = factoryMethod.createHangmanPanel();
+        this.gameScore = factoryMethod.createGameScore();
     }
 
-    /* Example of second constructor
-    @Autowired
     public GUI(
-            @Qualifier("englishLanguage") Language language,
-            @Qualifier("englishDictionary") HangmanDictionary dictionary,
-            @Qualifier("hangmanStickmanPanel") HangmanPanel hangmanPanel
+            @Qualifier("frenchLanguage") Language language,
+            @Qualifier("frenchDictionary") HangmanDictionary dictionary,
+            @Qualifier("hangmanStickmanPanel") HangmanPanel hangmanPanel,
+            @Qualifier("bonusScore") GameScore gameScore
     ) {
         this.language = language;
         this.dictionary = dictionary;
         this.hangmanPanel = hangmanPanel;
-    }*/
+        this.gameScore = gameScore;
+    }
+
 
     // method: setup
     // purpose: Create the various panels (game screens) for our game
@@ -85,7 +90,7 @@ public class GUI {
                 mainFrameController
         );
 
-        GameModel gameModel = new GameModel(dictionary);
+        GameModel gameModel = new GameModel(dictionary, gameScore);
         gameController = new GameController(
                 new GamePanel(gameModel.getCharacterSet(), hangmanPanel, language),
                 gameModel,

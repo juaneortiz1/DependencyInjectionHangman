@@ -1,5 +1,7 @@
 package co.edu.escuelaing.hangman;
 
+import co.edu.escuelaing.hangman.setup.factoryMethod.HangmanDefaultFactoryMethod;
+import co.edu.escuelaing.hangman.setup.injectionMethod.InjectionMethod;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;

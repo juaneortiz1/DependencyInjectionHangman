@@ -24,6 +24,7 @@ import java.util.Scanner;
 
 
 public class GameModel {
+    private GameScore score;
     private int incorrectCount;
     private int correctCount;
     private LocalDateTime dateTime;
@@ -39,14 +40,15 @@ public class GameModel {
 
 
     @Autowired
-    public GameModel(HangmanDictionary dictionary) {
+    public GameModel(HangmanDictionary dictionary, GameScore score) {
         //this.dictionary = new EnglishDictionaryDataSource();
         this.dictionary = dictionary;
         randomWord = selectRandomWord();
         randomWordCharArray = randomWord.toCharArray();
+        this.score = score;
         incorrectCount = 0;
         correctCount = 0;
-        gameScore = 100;
+        gameScore = score.calculateScore(correctCount, incorrectCount);
 
     }
 
@@ -57,7 +59,7 @@ public class GameModel {
         randomWordCharArray = randomWord.toCharArray();
         incorrectCount = 0;
         correctCount = 0;
-        gameScore = 100;
+        gameScore = score.calculateScore(correctCount, incorrectCount);
     }
 
     //setDateTime
@@ -79,9 +81,10 @@ public class GameModel {
         }
         if (positions.size() == 0) {
             incorrectCount++;
-            gameScore -= 10;
+            gameScore -= score.calculateScore(correctCount, incorrectCount);
         } else {
             correctCount += positions.size();
+            gameScore = score.calculateScore(correctCount, incorrectCount);
         }
         return positions;
 
