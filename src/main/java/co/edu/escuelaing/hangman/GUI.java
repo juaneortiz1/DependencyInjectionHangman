@@ -55,17 +55,13 @@ public class GUI {
         this.hangmanPanel = factoryMethod.createHangmanPanel();
         this.gameScore = factoryMethod.createGameScore();
     }
-
+    @Autowired
     public GUI(
-            @Qualifier("frenchLanguage") Language language,
-            @Qualifier("frenchDictionary") HangmanDictionary dictionary,
-            @Qualifier("hangmanStickmanPanel") HangmanPanel hangmanPanel,
-            @Qualifier("bonusScore") GameScore gameScore
-    ) {
-        this.language = language;
-        this.dictionary = dictionary;
-        this.hangmanPanel = hangmanPanel;
-        this.gameScore = gameScore;
+            InjectionMethod injectionMethod) {
+        this.language = injectionMethod.createLanguage();
+        this.dictionary = injectionMethod.createDictionary();
+        this.hangmanPanel = injectionMethod.createHangmanPanel();
+        this.gameScore = injectionMethod.createGameScore();
     }
 
 
